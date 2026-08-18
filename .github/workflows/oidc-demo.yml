@@ -16,7 +16,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502
         with:
           role-to-assume: arn:aws:iam::047450205639:role/devops-lab8-github-role
-          aws-region: us-east-1
+          aws-region: ap-south-1
           audience: sts.amazonaws.com
           disable-retry: true
 
