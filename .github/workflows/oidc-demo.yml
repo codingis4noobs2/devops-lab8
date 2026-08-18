@@ -12,9 +12,6 @@ jobs:
   fetch-secret:
     runs-on: ubuntu-latest
     steps:
-      - name: Debug OIDC claims
-        uses: github/actions-oidc-debugger@main
-
       - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
