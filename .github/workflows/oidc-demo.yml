@@ -1,0 +1,31 @@
+name: OIDC Secrets Demo
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  fetch-secret:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::306036270871:role/devops-lab8-github-role
+          aws-region: ap-south-1
+
+      - name: Verify identity (no hardcoded keys)
+        run: aws sts get-caller-identity
+
+      - name: Fetch DB password from Secrets Manager
+        run: |
+          SECRET=$(aws secretsmanager get-secret-value \
+            --secret-id devops/lab8/db-password \
+            --query SecretString \
+            --output text)
+          echo "Secret retrieved successfully"
+          echo "Password length: ${#SECRET} characters"
